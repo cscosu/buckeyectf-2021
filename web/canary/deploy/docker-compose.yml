@@ -1,0 +1,23 @@
+version: "3"
+services:
+  app:
+    build: ./app
+    network_mode: host
+    ports:
+      - 80:8080
+    environment:
+      - APP_PROTOCOL
+      - APP_HOSTNAME
+      - APP_PORT
+      - APP_DISCORD_TOKEN
+      - APP_CLIENT_ID
+      - ADMIN_SECRET
+      - FLAG
+
+  admin:
+    build: ./admin
+    network_mode: host
+    environment:
+      - APP_HOSTNAME
+      - ADMIN_SECRET
+      - ADMIN_DISCORD_TOKEN

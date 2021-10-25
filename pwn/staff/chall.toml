@@ -1,0 +1,6 @@
+name = "staff"
+category = "pwn"
+author = "ath0"
+description = "Dr. Staff will see you now..."
+difficulty = "1/5"
+flag = "buckeye{if_0n1y_th15_w0rk3d}"

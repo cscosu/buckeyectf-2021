@@ -1,0 +1,6 @@
+name = "Curly fries"
+category = "web"
+author = "qxxxb"
+description = "It's curl as a service"
+difficulty = "3/5"
+flag = "buckeye{https://secret.club/2021/05/13/source-engine-rce-join.html}"

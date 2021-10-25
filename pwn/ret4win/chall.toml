@@ -1,0 +1,6 @@
+name = "ret4win"
+categories = ["pwn", "warmup"]
+author = "qxxxb"
+description = "Did I make a typo in the challenge name?"
+difficulty = "1/5"
+flag = "buckeye{ret2win_t1m3s_tw0_1s_ret4win_1_guess}"

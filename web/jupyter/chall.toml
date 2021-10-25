@@ -1,0 +1,6 @@
+name = "Jupyter 2"
+category = "web"
+author = "qxxxb"
+description = "Ok, this time you can't access the Jupyter notebook server."
+difficulty = "3/5"
+flag = "buckeye{JUp1t3r_n0t3b0ok_funNy_bu51n3sS}"

@@ -1,0 +1,6 @@
+/*!
+devtools-detect
+https://github.com/sindresorhus/devtools-detect
+By Sindre Sorhus
+MIT License
+*/

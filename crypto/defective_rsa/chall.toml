@@ -1,0 +1,6 @@
+name = "Defective RSA"
+category = "crypto"
+author = "qxxxb"
+description = "I use whatever exponent I want"
+difficulty = "3/5"
+flag = "buckeye{r0ots_0f_uN1Ty_w0rk_f0r_th1s???}"

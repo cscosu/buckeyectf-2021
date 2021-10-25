@@ -1,0 +1,23 @@
+; Original code by Kyle Westhaus
+
+; expects buf1 in hl and buf2 in de
+; trashes a
+memcmp:
+        push hl
+        push de
+        push bc
+
+memcmp_loop:
+        ld a, (de)
+        cpi
+        jr nz, memcmp_end ; quit (with nz condition) if values unequal
+        or a
+        jr z, memcmp_end ; quit (with z condition) if values equal and end of string (null byte)
+        inc de
+        jr memcmp_loop
+
+memcmp_end: 
+        pop bc
+        pop de
+        pop hl
+        ret

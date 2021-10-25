@@ -1,0 +1,28 @@
+; Original code by Kyle Westhaus
+
+; expects null-terminated input buffer in hl
+; trashes a, hl
+alphadown:
+        ld a, (hl)
+        or a
+        jr z, alphadown_pass ; terminate if null byte reached
+        
+        sub 'A'
+        jr c, alphadown_fail ; terminate if too low
+        
+        cp 'Z'-'A'
+        jr nc, alphadown_fail ; terminate if too high
+        inc a ; make range 1-25 so only null byte is end of string
+        ld (hl), a
+        inc hl
+        jr alphadown
+
+alphadown_pass:
+        ld a,1
+        jr alphadown_end
+
+alphadown_fail:
+        xor a
+
+alphadown_end:
+        ret

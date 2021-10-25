@@ -1,0 +1,58 @@
+; Code adapted by Kyle Westhaus from sample code provided in Day 27 of "Learn TI-83 Plus Assembly In 28 Days" by Sean McLaughlin
+
+; expects buffer in hl, size in c, and size to be >= 1 (last character will be null byte)
+; trashes a, b, de, hl
+strnget:
+        res AppTextSave, (IY + AppFlags)
+        xor a
+        ld b, a
+        dec c
+        ; does NOT reset text position (in case getting input after prompt)
+        ; ld (CurCol), a
+
+strnget_keyloop:
+        ex de, hl
+        bcall(_GetCSC)
+        ex de, hl
+        or a
+        jr z, strnget_keyloop
+
+        cp skEnter
+        jr nz, strnget_notenter
+
+        ld (hl), 0
+        bcall(_NewLine)
+        ret
+
+strnget_notenter:
+        ld d, a
+        ld a, b
+        cp c
+        jr z, strnget_keyloop
+
+        ld a, d
+        sub skAdd
+        jr c, strnget_keyloop
+
+        cp skMath - skAdd + 1
+        jr nc, strnget_keyloop
+
+        push hl
+        ld h, 0
+        ld l, a
+        ld de, strnget_chartable
+        add hl, de
+        ld a, (hl)
+        pop hl
+        bcall(_PutC)
+        ld (hl), a
+        inc hl
+        inc b
+        jr strnget_keyloop
+
+strnget_chartable:
+        .db "'WRMH", 0, 0
+        .db "?", LTheta, "VQLG", 0, 0
+        .db ":ZUPKFC", 0
+        .db " YTOJEB", 0, 0
+        .db "XSNIDA"

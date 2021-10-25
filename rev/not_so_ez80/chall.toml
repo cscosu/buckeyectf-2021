@@ -1,0 +1,6 @@
+name = "Not So E(Z80)"
+category = "rev"
+author = "arcsolstice"
+description = "Hmmm, that last challenge didn't really make use of the blisteringly fast CPU that TI offers. Maybe we can get lower level?"
+difficulty = "3.5/5"
+flag = "BUCKEYE{ATLEASTYOUDONTNEEDAJAILBREAKTORUNTHIS}"

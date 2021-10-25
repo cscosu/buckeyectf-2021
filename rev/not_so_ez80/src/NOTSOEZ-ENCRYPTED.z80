@@ -1,0 +1,142 @@
+; Original code by Kyle Westhaus
+
+.nolist
+#include "ti83plus.inc"
+#define BUFSIZE 38
+buffer .equ TextShadow
+.list
+
+	.org userMem-2
+	.db $BB,$6D
+
+main:
+	bcall(_ClrLCDFull)
+        ld b,234
+        ld hl, startencrypt
+
+decloop:
+        ld a, (hl)
+        xor b
+        ld (hl), a
+        inc hl
+        djnz decloop
+
+start:
+	ld a, 0
+        ld (CurRow), a
+        ld (CurCol), a
+        ld hl, s_prompt
+        bcall(_PutS)
+
+        ld hl, s_input
+        ld c, BUFSIZE
+        call strnget
+
+        ld hl, s_input
+        ld de, buffer
+main_copy_loop:
+        ld a, (hl)
+        ld (de), a
+        inc hl
+        inc de
+        or a
+        jr nz, main_copy_loop
+
+        ld hl, buffer
+        call alphadown
+
+        or a
+        jr z, main_wrong
+
+        ld hl, buffer
+        call scramble
+
+        ld hl, buffer
+        call alphaup
+
+        ld hl, s_key
+        ld de, buffer
+        call memcmp
+        jr z, main_right
+
+main_wrong:
+        ld hl, s_wrong
+        bcall(_PutS)
+        bcall(_NewLine)
+        jr main_end
+
+main_right:
+        ld hl, s_correct
+        bcall(_PutS)
+        bcall(_NewLine)
+        ld hl, s_flagopen
+        bcall(_PutS)
+        ld hl, s_input
+        bcall(_PutS)
+        ld hl, s_flagclose
+        bcall(_PutS)
+        bcall(_NewLine)
+
+main_end:
+        ld hl, s_pressenter
+        bcall(_PutS)
+        ld hl, s_input
+        ld c, 1
+        call strnget
+        bcall(_ClrLCDFull)
+        ret
+
+#include "STRNGET.z80"
+#include "ALPHADWN.z80"
+#include "ALPHAUP.z80"
+startencrypt:
+scramble: ; 9ea2
+        .db $E4,$E8,$96,$50,$CE,$C1,$D9,$06
+        .db $F3,$2C,$7E,$F9,$DE,$B2,$C5,$A5
+        .db $9B,$1F,$D3,$29,$CF,$ED,$D6,$05
+        .db $CB,$C1,$26,$DE,$28,$53,$EA,$CB
+        .db $A5,$D0,$B6,$FB,$27,$B2,$E7,$CF
+        .db $DA,$19,$09,$BC,$B6,$A9,$BE,$A3
+        .db $AD,$BF,$B4,$A4,$B6,$A3,$B1,$BC
+        .db $A3,$BA,$A0,$A6,$A3,$BF,$AD,$AF
+        .db $A0,$A7,$AF,$B2,$AF,$B6,$A7,$A3
+        .db $B6,$AA,$A6,$88,$9F,$8D,$89,$95
+        .db $9D,$88,$8E,$9B,$99,$98,$86,$9B
+        .db $90,$89,$9A,$8A,$8A
+memcmp: ; 9eff
+        .db $68,$59,$4E
+        .db $90,$64,$29,$A7,$80,$32,$AC,$80
+        .db $91,$99,$75,$BE,$AF,$9C,$B5
+s_prompt: ; 9f11
+        .db $3C
+        .db $2F,$3C,$2B,$24,$4C,$55,$74
+s_key: ; 9f19
+        .db $24
+        .db $34,$23,$23,$2D,$3F,$2C,$3D,$3D
+        .db $3D,$2F,$3B,$31,$2A,$3D,$2E,$2C
+        .db $28,$29,$23,$0E,$11,$1F,$17,$09
+        .db $0C,$13,$14,$14,$06,$00,$13,$1F
+        .db $18,$1A,$1D,$05,$4E
+s_wrong: ; 9f3f
+        .db $1A,$1E,$04
+        .db $04,$0E,$69,$47
+s_correct: ; 9f46
+        .db $05,$0A,$16,$11
+        .db $07,$02,$14,$1E,$3E
+s_flagopen: ; 9f4f
+        .db $7F,$69,$78
+        .db $71,$7C,$61,$72,$4D,$35
+s_flagclose: ; 9f58
+        .db $49,$33
+s_input: ; 9f5a
+        .db $73,$73,$73,$6B,$6B,$6B,$6B,$63
+        .db $63,$63,$63,$6B,$6B,$6B,$6B,$73
+        .db $73,$73,$73,$4B,$4B,$4B,$4B,$43
+        .db $43,$58,$59,$55,$54,$56,$57,$57
+        .db $56,$54,$55,$49,$48,$0D
+s_pressenter: ; 9f80
+        .db $5C,$59
+        .db $4F,$5A,$5B,$27,$43,$4B,$50,$46
+        .db $50,$01
+
+.end

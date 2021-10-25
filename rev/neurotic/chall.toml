@@ -1,0 +1,6 @@
+name = "Neurotic"
+category = "rev"
+author = "qxxxb"
+description = "I'm sure neural nets are great for encryption!"
+difficulty = "2/5"
+flag = "buckeye{w41t_1ts_4ll_m4tr1x_mult1pl1cat10n????_4lwy4y5_h4s_b33n}"

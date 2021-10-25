@@ -1,0 +1,6 @@
+name = "SOP"
+category = "web"
+author = "qxxxb"
+description = "Sorry, but my server only gives the flag to the admin. Same-origin policy makes stealing it impossible."
+difficulty = "1/5"
+flag = "buckeye{th3_l3tt3r5_0f_S0P_Ar3_1n_JS0NP}"

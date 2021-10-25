@@ -1,0 +1,6 @@
+name = "Pseudo"
+category = "crypto"
+author = "qxxxb"
+description = "Surely the Legendre symbol is a great random number generator, right?"
+difficulty = "3/5"
+flag = "buckeye{f3rm4t_l13d_t0_m3_0mg}"

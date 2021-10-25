@@ -1,0 +1,6 @@
+name = "Key exchange"
+category = "crypto"
+author = "qxxxb"
+description = "Let's exchange the flag (securely)"
+difficulty = "0/5"
+flag = "buckeye{DH_1s_s0_h3ck1ng_c00l_l1k3_wh0_w0uldv3_th0ught_0f_th1s?}"

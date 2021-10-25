@@ -1,0 +1,6 @@
+name = "Don't Talk to Blue Birds"
+category = "misc"
+author = "sтерн"
+description = "Gillian Owens is the head of Witch Security. She's been oversharing on her personal accounts. Challenge type: OSINT. Note: flag format is flag{} for this challenge!"
+difficulty = "1.5/5"
+flag = "flag{aggre55ive_Hall0we3n_prepArati0ns_Und3rw4y}"

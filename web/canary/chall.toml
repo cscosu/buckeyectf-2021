@@ -1,0 +1,6 @@
+name = "SOP"
+category = "web"
+author = "qxxxb"
+description = "Ever heard of [https://canarytokens.com](https://canarytokens.com)? I made something like that but it DMs you on Discord instead. You can test it out with **Canary#9846**.\If you find anything interesting, pass it along to **Canary Admin#6625**"
+difficulty = "1/5"
+flag = "buckeye{d0ma1n_m4tch1ng_1s_c4s5_1ns3nsit1v3}"

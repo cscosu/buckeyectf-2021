@@ -1,0 +1,6 @@
+name = "USB Exfiltration"
+category = "misc"
+author = "arcsolstice"
+description = "Someone stole data from our servers and you need to figure out exactly what they took or you're fired! We know they zipped the files then transferred them via USB somehow so here's a capture of the USB traffic. You should be able to recover the files from that, right?"
+difficulty = "2/5"
+flag = "buckeye{why_1snt_7h3r3_4_di55ect0r_4_th1s}"

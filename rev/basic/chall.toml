@@ -1,0 +1,6 @@
+name = "BASIC"
+category = "rev"
+author = "arcsolstice"
+description = "Get ready to go back to high school cause we're breaking out those graphing calculators! The ROM file is just to help run the challenge, you shouldn't have to reverse any of it. P.S. Remember that flags are case sensitive!"
+difficulty = "1.5/5"
+flag = "BUCKEYE{M4TH-CLA55-W4S-B0R1NG}"

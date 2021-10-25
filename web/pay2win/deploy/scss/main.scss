@@ -1,0 +1,159 @@
+$family-sans-serif: BlinkMacSystemFont, -apple-system, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+@import "bulma";
+
+#overlay-mask {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.popup {
+    z-index: 10;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+
+    &.active.inline {
+        display: inline-block;
+    }
+}
+
+.bottom-popup {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.permission-popup {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 500px;
+    margin-left: -250px;
+}
+
+.skeleton-line {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 1em;
+    margin-bottom: 8px;
+
+    &.partial {
+        width: 40%;
+    }
+}
+
+#continue-reading {
+    width: 100%;
+    height: 50%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.8));
+
+    .container {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.no-scroll {
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.container > p {
+    text-align: justify;
+}
+
+#flag {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 1.5em;
+}
+
+#flag-container {
+    display: flex;
+    position: relative;
+}
+
+#flag-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: $grey-light;
+}
+
+.flag-char-0 { order: 13 }
+.flag-char-1 { order: 47 }
+.flag-char-2 { order: 40 }
+.flag-char-3 { order: 49 }
+.flag-char-4 { order: 39 }
+.flag-char-5 { order: 50 }
+.flag-char-6 { order: 15 }
+.flag-char-7 { order: 26 }
+.flag-char-8 { order: 35 }
+.flag-char-9 { order: 18 }
+.flag-char-10 { order: 29 }
+.flag-char-11 { order: 44 }
+.flag-char-12 { order: 42 }
+.flag-char-13 { order: 20 }
+.flag-char-14 { order: 55 }
+.flag-char-15 { order: 32 }
+.flag-char-16 { order: 43 }
+.flag-char-17 { order: 11 }
+.flag-char-18 { order: 48 }
+.flag-char-19 { order: 14 }
+.flag-char-20 { order: 16 }
+.flag-char-21 { order: 25 }
+.flag-char-22 { order: 52 }
+.flag-char-23 { order: 4 }
+.flag-char-24 { order: 2 }
+.flag-char-25 { order: 30 }
+.flag-char-26 { order: 17 }
+.flag-char-27 { order: 21 }
+.flag-char-28 { order: 54 }
+.flag-char-29 { order: 22 }
+.flag-char-30 { order: 0 }
+.flag-char-31 { order: 38 }
+.flag-char-32 { order: 7 }
+.flag-char-33 { order: 37 }
+.flag-char-34 { order: 46 }
+.flag-char-35 { order: 45 }
+.flag-char-36 { order: 24 }
+.flag-char-37 { order: 3 }
+.flag-char-38 { order: 19 }
+.flag-char-39 { order: 31 }
+.flag-char-40 { order: 23 }
+.flag-char-41 { order: 33 }
+.flag-char-42 { order: 8 }
+.flag-char-43 { order: 41 }
+.flag-char-44 { order: 27 }
+.flag-char-45 { order: 6 }
+.flag-char-46 { order: 9 }
+.flag-char-47 { order: 28 }
+.flag-char-48 { order: 53 }
+.flag-char-49 { order: 5 }
+.flag-char-50 { order: 34 }
+.flag-char-51 { order: 51 }
+.flag-char-52 { order: 10 }
+.flag-char-53 { order: 12 }
+.flag-char-54 { order: 36 }
+.flag-char-55 { order: 1 }

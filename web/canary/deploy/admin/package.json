@@ -1,0 +1,31 @@
+{
+  "name": "canary_admin",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "watch": "nodemon ./app.ts | pino-pretty -c -t"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "axios": "^0.23.0",
+    "axios-cookiejar-support": "^2.0.2",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.2.0",
+    "tough-cookie": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.10.4",
+    "@types/tough-cookie": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "eslint": "^7.12.1",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.0.0",
+    "nodemon": "^2.0.13",
+    "pino-pretty": "^7.0.1",
+    "ts-node": "^10.3.0",
+    "typescript": "^4"
+  }
+}

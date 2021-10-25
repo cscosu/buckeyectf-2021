@@ -1,0 +1,6 @@
+name = "Open Source In(sta)telligence"
+category = "misc"
+author = "sтерн"
+description = "Gillian Owens is the head of Witch Security. She's been oversharing on her personal accounts. Challenge type: OSINT. Note: flag format is flag{} for this challenge!"
+difficulty = "1.5/5"
+flag = "flag{spo00ky_szn_15_very_AestH3tic}"

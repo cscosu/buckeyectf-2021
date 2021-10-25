@@ -1,0 +1,16 @@
+; Original code by Kyle Westhaus
+
+; expects null-terminated input buffer in hl
+; trashes a, hl
+alphaup:
+        ld a, (hl)
+        or a
+        jr z, alphaup_end ; terminate if null byte reached
+        
+        add a, '@'
+        ld (hl), a
+        inc hl
+        jr alphaup
+
+alphaup_end:
+        ret

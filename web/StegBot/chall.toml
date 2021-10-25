@@ -1,0 +1,6 @@
+name = "StegBot"
+category = "misc"
+author = "qxxxb"
+description = "Everybody loves [steghide](https://github.com/perfectblue/ctf-writeups/tree/master/2020/csaw-quals-2020/take-it-easy#step-3), so I made **StegBot#2632** so that you can use it from Discord!"
+difficulty = "1/5"
+flag = "buckeye{d0wnl0ad1ng_f1l3s_fr0m_n0d3_w4s_t00_h4rd_s0_1_ju5t_u53d_curl}"

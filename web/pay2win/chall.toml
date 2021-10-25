@@ -1,0 +1,6 @@
+name = "pay2win"
+category = "web"
+author = "qxxxb"
+description = "Kyle started an online magazine (The Daily Kyle) and published one of my articles on his site. Don't worry, the article literally contains the flag in plaintext, but if you want to read it you'll have to figure out how to bypass the paywall."
+difficulty = "0/5"
+flag = "buckeye{h0ly_sh1t_wh4t_th3_h3ck_1s_th1s_w31rd_ch4ll3ng3}"

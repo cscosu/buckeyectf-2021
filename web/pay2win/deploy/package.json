@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "bulma": "^0.9.3",
+    "devtools-detect": "^4.0.0",
+    "sweetalert": "^2.1.2",
+    "webpack": "^5.59.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "name": "pay2win",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+      "build": "npx webpack --mode production"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
+  }
+}

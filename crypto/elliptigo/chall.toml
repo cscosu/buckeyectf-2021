@@ -1,0 +1,6 @@
+name = "Elliptigo"
+category = "crypto"
+author = "qxxxb"
+description = "I heard everyone uses Curve25519 these days. I'm sure it's super secure, so I'll even let you pick a base point!"
+difficulty = "2/5"
+flag = "buckeye{p01nt5_0f_l0w_0rd3r}"

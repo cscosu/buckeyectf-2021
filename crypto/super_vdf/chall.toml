@@ -1,0 +1,6 @@
+name = "Super VDF"
+category = "crypto"
+author = "qxxxb"
+description = "You'll need a supercomputer to pass my VDF"
+difficulty = "2/5"
+flag = "buckeye{phee_phi_pho_phum_v3ry_stup1d_puzzle}"

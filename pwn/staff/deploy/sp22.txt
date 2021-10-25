@@ -1,0 +1,13 @@
+CSE 2221
+Bucci
+CSE 2231
+Bucci
+CSE 2331
+Zaccai
+FLAG 1337
+buckeye{if_0n1y_th15_w0rk3d}
+CSE 2421
+Kirby
+CSE 2431
+Babic
+

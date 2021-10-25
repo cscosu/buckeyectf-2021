@@ -1,0 +1,112 @@
+; Original code by Kyle Westhaus
+
+.nolist
+#include "ti83plus.inc"
+#define BUFSIZE 38
+buffer .equ TextShadow
+.list
+
+	.org userMem-2
+	.db $BB,$6D
+
+main:
+	bcall(_ClrLCDFull)
+        ld b,255
+        ld hl, startencrypt
+
+decloop:
+        ld a, (hl)
+        xor b
+        ld (hl), a
+        inc hl
+        djnz decloop
+
+start:
+	ld a, 0
+        ld (CurRow), a
+        ld (CurCol), a
+        ld hl, s_prompt
+        bcall(_PutS)
+
+        ld hl, s_input
+        ld c, BUFSIZE
+        call strnget
+
+        ld hl, s_input
+        ld de, buffer
+main_copy_loop:
+        ld a, (hl)
+        ld (de), a
+        inc hl
+        inc de
+        or a
+        jr nz, main_copy_loop
+
+        ld hl, buffer
+        call alphadown
+
+        or a
+        jr z, main_wrong
+
+        ld hl, buffer
+        call scramble
+
+        ld hl, buffer
+        call alphaup
+
+        ld hl, s_key
+        ld de, buffer
+        call memcmp
+        jr z, main_right
+
+main_wrong:
+        ld hl, s_wrong
+        bcall(_PutS)
+        bcall(_NewLine)
+        jr main_end
+
+main_right:
+        ld hl, s_correct
+        bcall(_PutS)
+        bcall(_NewLine)
+        ld hl, s_flagopen
+        bcall(_PutS)
+        ld hl, s_input
+        bcall(_PutS)
+        ld hl, s_flagclose
+        bcall(_PutS)
+        bcall(_NewLine)
+
+main_end:
+        ld hl, s_pressenter
+        bcall(_PutS)
+        ld hl, s_input
+        ld c, 1
+        call strnget
+        bcall(_ClrLCDFull)
+        ret
+
+#include "STRNGET.z80"
+#include "ALPHADWN.z80"
+#include "ALPHAUP.z80"
+#include "SCRAMBLE.z80"
+#include "MEMCMP.z80"
+
+s_prompt:
+	.db "GUESS: ",0
+s_key:
+	.db "WFRSBQAQVWFSVLXJOJHCQOBKRVJLCPUGLJKMJ",0
+s_wrong:
+        .db "WRONG!",0
+s_correct:
+        .db "CORRECT!",0
+s_flagopen:
+	.db "BUCKEYE{",0
+s_flagclose:
+	.db "}",0
+s_input:
+        .db "ABCDEFGHIJKLMNOPQRSTUVWXYAABBCCDDEEFF",0
+s_pressenter:
+        .db "PRESS ENTER",0
+last:
+.end

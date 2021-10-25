@@ -1,0 +1,360 @@
+    1 00:0000 -  -  -  -  ; Original code by Kyle Westhaus
+    2 00:0000 -  -  -  -  
+    8 00:0000 -  -  -  -  
+    9 00:0000 -  -  -  -  	.org userMem-2
+   10 00:9D93 BB 6D -  -  	.db $BB,$6D
+   11 00:9D95 -  -  -  -  
+   12 00:9D95 -  -  -  -  main:
+   13 00:9D95 EF 40 45 -  	bcall(_ClrLCDFull)
+Listing for file "NOTSOEZ.z80"
+   14 00:9D98 06 FF -  -          ld b,255
+   15 00:9D9A 21 8D 9E -          ld hl, startencrypt
+   16 00:9D9D -  -  -  -  
+   17 00:9D9D -  -  -  -  decloop:
+   18 00:9D9D 7E -  -  -          ld a, (hl)
+   19 00:9D9E A8 -  -  -          xor b
+   20 00:9D9F 77 -  -  -          ld (hl), a
+   21 00:9DA0 23 -  -  -          inc hl
+   22 00:9DA1 10 FA -  -          djnz decloop
+   23 00:9DA3 -  -  -  -  
+   24 00:9DA3 -  -  -  -  start:
+   25 00:9DA3 3E 00 -  -  	ld a, 0
+   26 00:9DA5 32 4B 84 -          ld (CurRow), a
+   27 00:9DA8 32 4C 84 -          ld (CurCol), a
+   28 00:9DAB 21 11 9F -          ld hl, s_prompt
+   29 00:9DAE EF 0A 45 -          bcall(_PutS)
+   30 00:9DB1 -  -  -  -  
+   31 00:9DB1 21 5A 9F -          ld hl, s_input
+   32 00:9DB4 0E 26 -  -          ld c, BUFSIZE
+   33 00:9DB6 CD 21 9E -          call strnget
+   34 00:9DB9 -  -  -  -  
+   35 00:9DB9 21 5A 9F -          ld hl, s_input
+   36 00:9DBC 11 08 85 -          ld de, buffer
+   37 00:9DBF -  -  -  -  main_copy_loop:
+   38 00:9DBF 7E -  -  -          ld a, (hl)
+   39 00:9DC0 12 -  -  -          ld (de), a
+   40 00:9DC1 23 -  -  -          inc hl
+   41 00:9DC2 13 -  -  -          inc de
+   42 00:9DC3 B7 -  -  -          or a
+   43 00:9DC4 20 F9 -  -          jr nz, main_copy_loop
+   44 00:9DC6 -  -  -  -  
+   45 00:9DC6 21 08 85 -          ld hl, buffer
+   46 00:9DC9 CD 80 9E -          call alphadown
+   47 00:9DCC -  -  -  -  
+   48 00:9DCC B7 -  -  -          or a
+   49 00:9DCD 28 17 -  -          jr z, main_wrong
+   50 00:9DCF -  -  -  -  
+   51 00:9DCF 21 08 85 -          ld hl, buffer
+   52 00:9DD2 CD A2 9E -          call scramble
+   53 00:9DD5 -  -  -  -  
+   54 00:9DD5 21 08 85 -          ld hl, buffer
+   55 00:9DD8 CD 97 9E -          call alphaup
+   56 00:9DDB -  -  -  -  
+   57 00:9DDB 21 19 9F -          ld hl, s_key
+   58 00:9DDE 11 08 85 -          ld de, buffer
+   59 00:9DE1 CD FF 9E -          call memcmp
+   60 00:9DE4 28 0B -  -          jr z, main_right
+   61 00:9DE6 -  -  -  -  
+   62 00:9DE6 -  -  -  -  main_wrong:
+   63 00:9DE6 21 3F 9F -          ld hl, s_wrong
+   64 00:9DE9 EF 0A 45 -          bcall(_PutS)
+   65 00:9DEC EF 2E 45 -          bcall(_NewLine)
+   66 00:9DEF 18 1E -  -          jr main_end
+   67 00:9DF1 -  -  -  -  
+   68 00:9DF1 -  -  -  -  main_right:
+   69 00:9DF1 21 46 9F -          ld hl, s_correct
+   70 00:9DF4 EF 0A 45 -          bcall(_PutS)
+   71 00:9DF7 EF 2E 45 -          bcall(_NewLine)
+   72 00:9DFA 21 4F 9F -          ld hl, s_flagopen
+   73 00:9DFD EF 0A 45 -          bcall(_PutS)
+   74 00:9E00 21 5A 9F -          ld hl, s_input
+   75 00:9E03 EF 0A 45 -          bcall(_PutS)
+   76 00:9E06 21 58 9F -          ld hl, s_flagclose
+   77 00:9E09 EF 0A 45 -          bcall(_PutS)
+   78 00:9E0C EF 2E 45 -          bcall(_NewLine)
+   79 00:9E0F -  -  -  -  
+   80 00:9E0F -  -  -  -  main_end:
+   81 00:9E0F 21 80 9F -          ld hl, s_pressenter
+   82 00:9E12 EF 0A 45 -          bcall(_PutS)
+   83 00:9E15 21 5A 9F -          ld hl, s_input
+   84 00:9E18 0E 01 -  -          ld c, 1
+   85 00:9E1A CD 21 9E -          call strnget
+   86 00:9E1D EF 40 45 -          bcall(_ClrLCDFull)
+   87 00:9E20 C9 -  -  -          ret
+   88 00:9E21 -  -  -  -  
+   89 00:9E21 -  -  -  -  #include "STRNGET.z80"
+Listing for file "STRNGET.z80"
+    1 00:9E21 -  -  -  -  ; Code adapted by Kyle Westhaus from sample code provided in Day 27 of "Learn TI-83 Plus Assembly In 28 Days" by Sean McLaughlin
+    2 00:9E21 -  -  -  -  
+    3 00:9E21 -  -  -  -  ; expects buffer in hl, size in c, and size to be >= 1 (last character will be null byte)
+    4 00:9E21 -  -  -  -  ; trashes a, b, de, hl
+    5 00:9E21 -  -  -  -  strnget:
+    6 00:9E21 FD CB 0D 8E         res AppTextSave, (IY + AppFlags)
+    7 00:9E25 AF -  -  -          xor a
+    8 00:9E26 47 -  -  -          ld b, a
+    9 00:9E27 0D -  -  -          dec c
+   10 00:9E28 -  -  -  -          ; does NOT reset text position (in case getting input after prompt)
+   11 00:9E28 -  -  -  -          ; ld (CurCol), a
+   12 00:9E28 -  -  -  -  
+   13 00:9E28 -  -  -  -  strnget_keyloop:
+   14 00:9E28 EB -  -  -          ex de, hl
+   15 00:9E29 EF 18 40 -          bcall(_GetCSC)
+Listing for file "STRNGET.z80"
+   16 00:9E2C EB -  -  -          ex de, hl
+   17 00:9E2D B7 -  -  -          or a
+   18 00:9E2E 28 F8 -  -          jr z, strnget_keyloop
+   19 00:9E30 -  -  -  -  
+   20 00:9E30 FE 09 -  -          cp skEnter
+   21 00:9E32 20 06 -  -          jr nz, strnget_notenter
+   22 00:9E34 -  -  -  -  
+   23 00:9E34 36 00 -  -          ld (hl), 0
+   24 00:9E36 EF 2E 45 -          bcall(_NewLine)
+   25 00:9E39 C9 -  -  -          ret
+   26 00:9E3A -  -  -  -  
+   27 00:9E3A -  -  -  -  strnget_notenter:
+   28 00:9E3A 57 -  -  -          ld d, a
+   29 00:9E3B 78 -  -  -          ld a, b
+   30 00:9E3C B9 -  -  -          cp c
+   31 00:9E3D 28 E9 -  -          jr z, strnget_keyloop
+   32 00:9E3F -  -  -  -  
+   33 00:9E3F 7A -  -  -          ld a, d
+   34 00:9E40 D6 0A -  -          sub skAdd
+   35 00:9E42 38 E4 -  -          jr c, strnget_keyloop
+   36 00:9E44 -  -  -  -  
+   37 00:9E44 FE 26 -  -          cp skMath - skAdd + 1
+   38 00:9E46 30 E0 -  -          jr nc, strnget_keyloop
+   39 00:9E48 -  -  -  -  
+   40 00:9E48 E5 -  -  -          push hl
+   41 00:9E49 26 00 -  -          ld h, 0
+   42 00:9E4B 6F -  -  -          ld l, a
+   43 00:9E4C 11 5A 9E -          ld de, strnget_chartable
+   44 00:9E4F 19 -  -  -          add hl, de
+   45 00:9E50 7E -  -  -          ld a, (hl)
+   46 00:9E51 E1 -  -  -          pop hl
+   47 00:9E52 EF 04 45 -          bcall(_PutC)
+   48 00:9E55 77 -  -  -          ld (hl), a
+   49 00:9E56 23 -  -  -          inc hl
+   50 00:9E57 04 -  -  -          inc b
+   51 00:9E58 18 CE -  -          jr strnget_keyloop
+   52 00:9E5A -  -  -  -  
+   53 00:9E5A -  -  -  -  strnget_chartable:
+   54 00:9E5A 27 57 52 4D 
+              48 00 00 -          .db "'WRMH", 0, 0
+   55 00:9E61 3F 5B 56 51 
+              4C 47 00 00         .db "?", LTheta, "VQLG", 0, 0
+   56 00:9E69 3A 5A 55 50 
+              4B 46 43 00         .db ":ZUPKFC", 0
+   57 00:9E71 20 59 54 4F 
+              4A 45 42 00 
+              00 -  -  -          .db " YTOJEB", 0, 0
+   58 00:9E7A 58 53 4E 49 
+              44 41 -  -          .db "XSNIDA"
+Listing for file "NOTSOEZ.z80"
+   90 00:9E80 -  -  -  -  #include "ALPHADWN.z80"
+Listing for file "ALPHADWN.z80"
+    1 00:9E80 -  -  -  -  ; Original code by Kyle Westhaus
+    2 00:9E80 -  -  -  -  
+    3 00:9E80 -  -  -  -  ; expects null-terminated input buffer in hl
+    4 00:9E80 -  -  -  -  ; trashes a, hl
+    5 00:9E80 -  -  -  -  alphadown:
+    6 00:9E80 7E -  -  -          ld a, (hl)
+    7 00:9E81 B7 -  -  -          or a
+    8 00:9E82 28 0D -  -          jr z, alphadown_pass ; terminate if null byte reached
+    9 00:9E84 -  -  -  -          
+   10 00:9E84 D6 41 -  -          sub 'A'
+   11 00:9E86 38 0D -  -          jr c, alphadown_fail ; terminate if too low
+   12 00:9E88 -  -  -  -          
+   13 00:9E88 FE 19 -  -          cp 'Z'-'A'
+   14 00:9E8A 30 09 -  -          jr nc, alphadown_fail ; terminate if too high
+   15 00:9E8C 3C -  -  -          inc a ; make range 1-25 so only null byte is end of string
+   16 00:9E8D -  -  -  -  startencrypt:
+   17 00:9E8D 77 -  -  -          ld (hl), a
+   18 00:9E8E 23 -  -  -          inc hl
+   19 00:9E8F 18 EF -  -          jr alphadown
+   20 00:9E91 -  -  -  -  
+   21 00:9E91 -  -  -  -  alphadown_pass:
+   22 00:9E91 3E 01 -  -          ld a,1
+   23 00:9E93 18 01 -  -          jr alphadown_end
+   24 00:9E95 -  -  -  -  
+   25 00:9E95 -  -  -  -  alphadown_fail:
+   26 00:9E95 AF -  -  -          xor a
+   27 00:9E96 -  -  -  -  
+   28 00:9E96 -  -  -  -  alphadown_end:
+   29 00:9E96 C9 -  -  -          ret
+Listing for file "NOTSOEZ.z80"
+   91 00:9E97 -  -  -  -  #include "ALPHAUP.z80"
+Listing for file "ALPHAUP.z80"
+    1 00:9E97 -  -  -  -  ; Original code by Kyle Westhaus
+    2 00:9E97 -  -  -  -  
+    3 00:9E97 -  -  -  -  ; expects null-terminated input buffer in hl
+    4 00:9E97 -  -  -  -  ; trashes a, hl
+    5 00:9E97 -  -  -  -  alphaup:
+    6 00:9E97 7E -  -  -          ld a, (hl)
+    7 00:9E98 B7 -  -  -          or a
+    8 00:9E99 28 06 -  -          jr z, alphaup_end ; terminate if null byte reached
+    9 00:9E9B -  -  -  -          
+   10 00:9E9B C6 40 -  -          add a, '@'
+   11 00:9E9D 77 -  -  -          ld (hl), a
+   12 00:9E9E 23 -  -  -          inc hl
+   13 00:9E9F 18 F6 -  -          jr alphaup
+   14 00:9EA1 -  -  -  -  
+   15 00:9EA1 -  -  -  -  alphaup_end:
+   16 00:9EA1 C9 -  -  -          ret
+Listing for file "NOTSOEZ.z80"
+   92 00:9EA2 -  -  -  -  #include "SCRAMBLE.z80"
+Listing for file "SCRAMBLE.z80"
+    1 00:9EA2 -  -  -  -  ; Original code by Kyle Westhaus
+    2 00:9EA2 -  -  -  -  
+    3 00:9EA2 -  -  -  -  ; expects null-terminated input buffer in hl
+    4 00:9EA2 -  -  -  -  ; trashes ??
+    5 00:9EA2 -  -  -  -  scramble:
+    6 00:9EA2 0E 01 -  -          ld c,1 ; init position to 1
+    7 00:9EA4 -  -  -  -  
+    8 00:9EA4 -  -  -  -  scramble_loop:
+    9 00:9EA4 7E -  -  -          ld a, (hl)
+   10 00:9EA5 B7 -  -  -          or a
+   11 00:9EA6 28 24 -  -          jr z, scramble_end ; terminate if null byte reached
+   12 00:9EA8 -  -  -  -  
+   13 00:9EA8 3D -  -  -          dec a ; make range 0-24 for offset into index array
+   14 00:9EA9 E5 -  -  -          push hl ; store current letter pointer
+   15 00:9EAA 11 CD 9E -          ld de, scramble_index
+   16 00:9EAD 26 00 -  -          ld h,0
+   17 00:9EAF 6F -  -  -          ld l,a
+   18 00:9EB0 19 -  -  -          add hl, de
+   19 00:9EB1 7E -  -  -          ld a, (hl) ; index now in a
+   20 00:9EB2 41 -  -  -          ld b,c ; copy position for use in loop
+   21 00:9EB3 -  -  -  -  
+   22 00:9EB3 -  -  -  -  pos_loop:
+   23 00:9EB3 C6 0B -  -          add a,11
+   24 00:9EB5 FE 19 -  -          cp 25
+   25 00:9EB7 38 02 -  -          jr c, pos_nomod
+   26 00:9EB9 D6 19 -  -          sub 25
+   27 00:9EBB -  -  -  -  
+   28 00:9EBB -  -  -  -  pos_nomod:
+   29 00:9EBB 10 F6 -  -          djnz pos_loop
+   30 00:9EBD -  -  -  -          
+   31 00:9EBD 11 E6 9E -          ld de, scramble_table
+   32 00:9EC0 26 00 -  -          ld h,0
+   33 00:9EC2 6F -  -  -          ld l,a
+   34 00:9EC3 19 -  -  -          add hl, de
+   35 00:9EC4 7E -  -  -          ld a, (hl)
+   36 00:9EC5 3C -  -  -          inc a ; make range 1-25 so only null byte is end of string
+   37 00:9EC6 E1 -  -  -          pop hl
+   38 00:9EC7 77 -  -  -          ld (hl), a
+   39 00:9EC8 -  -  -  -  
+   40 00:9EC8 23 -  -  -          inc hl
+   41 00:9EC9 0C -  -  -          inc c
+   42 00:9ECA 18 D8 -  -          jr scramble_loop
+   43 00:9ECC -  -  -  -  
+   44 00:9ECC -  -  -  -  scramble_end:
+   45 00:9ECC C9 -  -  -          ret
+   46 00:9ECD -  -  -  -  
+   47 00:9ECD -  -  -  -  scramble_index:
+   48 00:9ECD 03 -  -  -          .db 3
+   49 00:9ECE 08 -  -  -          .db 8
+   50 00:9ECF 14 -  -  -          .db 20
+   51 00:9ED0 02 -  -  -          .db 2
+   52 00:9ED1 18 -  -  -          .db 24
+   53 00:9ED2 17 -  -  -          .db 23
+   54 00:9ED3 06 -  -  -          .db 6
+   55 00:9ED4 0C -  -  -          .db 12
+   56 00:9ED5 13 -  -  -          .db 19
+   57 00:9ED6 00 -  -  -          .db 0
+   58 00:9ED7 16 -  -  -          .db 22
+   59 00:9ED8 05 -  -  -          .db 5
+   60 00:9ED9 0F -  -  -          .db 15
+   61 00:9EDA 11 -  -  -          .db 17  
+   62 00:9EDB 0B -  -  -          .db 11
+   63 00:9EDC 10 -  -  -          .db 16
+   64 00:9EDD 09 -  -  -          .db 9
+   65 00:9EDE 0D -  -  -          .db 13
+   66 00:9EDF 12 -  -  -          .db 18
+   67 00:9EE0 01 -  -  -          .db 1
+   68 00:9EE1 04 -  -  -          .db 4
+   69 00:9EE2 0A -  -  -          .db 10
+   70 00:9EE3 0E -  -  -          .db 14
+   71 00:9EE4 07 -  -  -          .db 7
+   72 00:9EE5 15 -  -  -          .db 21
+   73 00:9EE6 -  -  -  -  scramble_table:
+   74 00:9EE6 09 13 03 00 
+              14 -  -  -          .db $09,$13,$03,$00,$14
+   75 00:9EEB 0B 06 17 01 
+              10 -  -  -          .db $0B,$06,$17,$01,$10
+   76 00:9EF0 15 0E 07 11 
+              16 -  -  -          .db $15,$0E,$07,$11,$16
+   77 00:9EF5 0C 0F 0D 12 
+              08 -  -  -          .db $0C,$0F,$0D,$12,$08
+   78 00:9EFA 02 18 0A 05 
+              04 -  -  -          .db $02,$18,$0A,$05,$04
+Listing for file "NOTSOEZ.z80"
+   93 00:9EFF -  -  -  -  #include "MEMCMP.z80"
+Listing for file "MEMCMP.z80"
+    1 00:9EFF -  -  -  -  ; Original code by Kyle Westhaus
+    2 00:9EFF -  -  -  -  
+    3 00:9EFF -  -  -  -  ; expects buf1 in hl and buf2 in de
+    4 00:9EFF -  -  -  -  ; trashes a
+    5 00:9EFF -  -  -  -  memcmp:
+    6 00:9EFF E5 -  -  -          push hl
+    7 00:9F00 D5 -  -  -          push de
+    8 00:9F01 C5 -  -  -          push bc
+    9 00:9F02 -  -  -  -  
+   10 00:9F02 -  -  -  -  memcmp_loop:
+   11 00:9F02 1A -  -  -          ld a, (de)
+   12 00:9F03 ED A1 -  -          cpi
+   13 00:9F05 20 06 -  -          jr nz, memcmp_end ; quit (with nz condition) if values unequal
+   14 00:9F07 B7 -  -  -          or a
+   15 00:9F08 28 03 -  -          jr z, memcmp_end ; quit (with z condition) if values equal and end of string (null byte)
+   16 00:9F0A 13 -  -  -          inc de
+   17 00:9F0B 18 F5 -  -          jr memcmp_loop
+   18 00:9F0D -  -  -  -  
+   19 00:9F0D -  -  -  -  memcmp_end: 
+   20 00:9F0D C1 -  -  -          pop bc
+   21 00:9F0E D1 -  -  -          pop de
+   22 00:9F0F E1 -  -  -          pop hl
+   23 00:9F10 C9 -  -  -          ret
+Listing for file "NOTSOEZ.z80"
+   94 00:9F11 -  -  -  -  
+   95 00:9F11 -  -  -  -  s_prompt:
+   96 00:9F11 47 55 45 53 
+              53 3A 20 00 	.db "GUESS: ",0
+   97 00:9F19 -  -  -  -  s_key:
+   98 00:9F19 57 46 52 53 
+              42 51 41 51 
+              56 57 46 53 
+              56 4C 58 4A 
+              4F 4A 48 43 
+              51 4F 42 4B 
+              52 56 4A 4C 
+              43 50 55 47 
+              4C 4A 4B 4D 
+              4A 00 -  -  	.db "WFRSBQAQVWFSVLXJOJHCQOBKRVJLCPUGLJKMJ",0
+   99 00:9F3F -  -  -  -  s_wrong:
+  100 00:9F3F 57 52 4F 4E 
+              47 21 00 -          .db "WRONG!",0
+  101 00:9F46 -  -  -  -  s_correct:
+  102 00:9F46 43 4F 52 52 
+              45 43 54 21 
+              00 -  -  -          .db "CORRECT!",0
+  103 00:9F4F -  -  -  -  s_flagopen:
+  104 00:9F4F 42 55 43 4B 
+              45 59 45 7B 
+              00 -  -  -  	.db "BUCKEYE{",0
+  105 00:9F58 -  -  -  -  s_flagclose:
+  106 00:9F58 7D 00 -  -  	.db "}",0
+  107 00:9F5A -  -  -  -  s_input:
+  108 00:9F5A 41 42 43 44 
+              45 46 47 48 
+              49 4A 4B 4C 
+              4D 4E 4F 50 
+              51 52 53 54 
+              55 56 57 58 
+              59 41 41 42 
+              42 43 43 44 
+              44 45 45 46 
+              46 00 -  -          .db "ABCDEFGHIJKLMNOPQRSTUVWXYAABBCCDDEEFF",0
+  109 00:9F80 -  -  -  -  s_pressenter:
+  110 00:9F80 50 52 45 53 
+              53 20 45 4E 
+              54 45 52 00         .db "PRESS ENTER",0
+  111 00:9F8C -  -  -  -  last:
+  112 00:9F8C -  -  -  -  .end

@@ -1,0 +1,6 @@
+name = "sozu"
+category = "web"
+author = "ath0"
+description = "I'm worried about security, so I switched to a reverse proxy written in Rust."
+difficulty = "2/5"
+flag = "buckeye{sozu_pr0b4b1y_5h0uldnt_d0_th4t_oops_7997acc28e34cfbcc049}"

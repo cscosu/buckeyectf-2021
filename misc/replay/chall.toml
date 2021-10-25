@@ -1,0 +1,6 @@
+name = "replay"
+category = "misc"
+author = "qxxxb"
+description = "Somebody pwned my app! Luckily I managed to capture the network traffic of their exploit. Oh by the way, the same app is also running on `chall.pwnoh.io` on port `13371`. Can you pwn it for me?"
+difficulty = "0/5"
+flag = "buckeye{g00d_th1ng_P1E_w4s_d1s4bl3d_0n_th3_b1n4ry}"

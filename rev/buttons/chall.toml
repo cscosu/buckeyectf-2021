@@ -1,0 +1,6 @@
+name = "Buttons"
+category = "rev"
+author = "qxxxb"
+description = "Anyone taken Software 1? Can you help me figure out what this weird Java program does?"
+difficulty = "1/5"
+flag = "buckeye{am4z1ng_j0b_y0u_b1g_j4va_h4ck3r}"
