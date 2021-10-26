@@ -2,13 +2,14 @@ import requests
 from pwn import *
 import time
 r = remote("pwn.chall.pwnoh.io", "13370")
+r.recvuntil("[*] ip =")
+ip = r.recvline().decode().strip()
 msg = r.recvuntil("[*] port =")
 port = int(r.recvline())
-print(msg)
 
 # I have this prompt here because you may wish to use localhost instead of remote
-url_base = input("IP? ").strip()
-URL_BASE = f"http://{url_base}:{port}/"
+#ip = input("IP? ").strip()
+URL_BASE = f"http://{ip}:{port}/"
 
 
 
