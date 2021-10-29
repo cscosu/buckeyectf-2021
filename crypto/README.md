@@ -266,7 +266,7 @@ if __name__ == "__main__":
 
 ### Solution
 
-This is the same setup as Key exchange 2, except now the group is Curve25519. The solution is to do a small subgroup attack:
+This is the same setup as Key exchange 2, except now the group is Curve25519. Since the order of the group has a small factor of 8, we can do a small subgroup attack again:
 
 ```python
 # Pick a generator G
@@ -521,7 +521,7 @@ I wasn't sure why this was the case, but next I tried [strong pseudoprimes](http
 
 Somehow, this made the RNG produce 97% zero bits in its output, which was more than enough to get the flag. It still isn't clear to me why some Carmichael numbers produce more biased outputs than others, but it seems like an interesting problem.
 
-- Some people like randomdude999, Polymero, and Waffles generated Carmichael numbers similar to the snippet of code above–but for some reason their numbers gave them biased PRNGs, which got them the flag.
+- Some people like randomdude999, Polymero, and Waffles generated Carmichael numbers similar to the snippet of code above–but for some reason their numbers gave them biased RNGs, which got them the flag.
 - Shadowwws managed to find a Carmichael number 12222215858006916517610684499755896040093289077713340217662837890484212251483748795117784089 that produced only 1 bits.
 
 ## Super VDF
