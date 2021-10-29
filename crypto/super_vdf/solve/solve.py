@@ -8,7 +8,7 @@ import pwn
 PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53]
 
 
-def pollards_rho(n):
+def pollards_p_1(n):
     x = 2
     for _ in range(30):
         x = pow(x, reduce(mul, PRIMES), n)
@@ -48,7 +48,7 @@ else:
     io = pwn.process("python3 ../deploy/chall.py", shell=True)
 
 n = int(io.recvlineS().strip().split("=")[1])
-p = pollards_rho(n)
+p = pollards_p_1(n)
 assert 1 < p < n
 assert n % p == 0
 q = n // p
