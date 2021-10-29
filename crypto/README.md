@@ -1,5 +1,4 @@
 # BuckeyeCTF 2021 crypto write-ups
-
 Version with LaTeX rendered: https://hackmd.io/@65XZ9ZfDTb21FI-0un6Zhg/BJj1FqYUK
 
 These are write-ups for the crypto challenges I wrote for BuckeyeCTF 2021. Source code and solve scripts can be found here: https://github.com/cscosu/buckeyectf-2021/tree/master/crypto
@@ -113,11 +112,11 @@ nc crypto.chall.pwnoh.io 13386
 
 ### Solution
 
-This is the same as the first Key exchange challenge, but no public key $A$ is given. The solution is the perform a small subgroup attack:
+This is the same as the first Key exchange challenge, but no public key $A$ is given. The solution is to perform a small subgroup attack:
 
 - Find any small prime factor $k$ of $p - 1$ (besides 2)
-- Set $B \equiv g^k \pmod{p}$. Then the order of $B$ is at most $k$.
-- The server calculates the shared key as $B^a \pmod{p}$. That means the shared key must one of $B, B^2, B^3, \ldots, B^k$. Just try all of them:
+- Set $B \equiv g^{\frac{p - 1}{k}} \pmod{p}$. Then the order of $B$ is at most $k$. That's because $B^k \equiv \left(g^{\frac{p - 1}{k}}\right)^k \equiv g^{p -1} \equiv 1 \pmod{p}$
+- The server calculates the shared key as $B^a \pmod{p}$. That means the shared key must be one of $B, B^2, B^3, \ldots, B^k$. Just try all of them:
 
 ```python
 for i in range(3, 1024):
@@ -324,7 +323,7 @@ print(f"c = {c}")
 # c = 4293606144359418817736495518573956045055950439046955515371898146152322502185230451389572608386931924257325505819171116011649046442643872945953560994241654388422410626170474919026755694736722826526735721078136605822710062385234124626978157043892554030381907741335072033672799019807449664770833149118405216955508166023135740085638364296590030244412603570120626455502803633568769117033633691251863952272305904666711949672819104143350385792786745943339525077987002410804383449669449479498326161988207955152893663022347871373738691699497135077946326510254675142300512375907387958624047470418647049735737979399600182827754
 ```
 
-This is a typical RSA encryption except except:
+This is a typical RSA encryption except:
 - We're given $p$ and $q$
 - $e$ and $\phi\left(n\right)$ are not co-prime, so we don't have a unique decryption.
 
